@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Sk modified music</title>
+	<link rel="stylesheet" type="text/css" href="css.css">
+	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+
+</head>
+<body>
+
+	<div class="main_div">
+		<div class="music_container">
+			<h1 id="header">RockaBye</h1>
+			<h2 id="title">Anne-Marie</h2>
+			 	<div id="img-cont ">
+				<img  src="img/rockabye.jpg">
+			</div>
+			<div  >
+
+				<audio src="m/rockabye.mp3"></audio>
+				<div class="progress_container" id="progress_container">
+					<div class="progress_time">
+						<div id="current">0:00</div>
+						<div id="duration">0.00</div>
+					</div>
+					<div class="progress_div" id="progress_div">
+						<div class="progress" id="progress"></div>
+					</div>
+
+				</div>
+				<div class="music_control">
+					<i class="fas fa-backward" id="prev" title="previous"></i>
+					<i class="fas fa-play main-button" id="play" title="Play"></i>
+					<i class="fas fa-forward" id="next" title="Next"></i>
+				</div>
+			</div>
+
+
+
+		</div>
+
+	</div>
+
+
+</body>
+<script>
+
+	const music=document.querySelector("audio");
+	const i=document.querySelector("img");
+	const play=document.getElementById("play");
+	const header=document.getElementById("header");
+	const title=document.getElementById("title");
+	const next=document.getElementById("next");
+	const previous=document.getElementById("prev");
+	let durationtime=document.getElementById("duration");
+	let current=document.getElementById("current");
+	const progress_div=document.getElementById("progress_div");
+	let progress=document.getElementById("progress");
+
+	let playing=true;
+	const playsong=()=>{
+		music.play();
+		playing=false;
+		play.classList.replace("fa-play","fa-pause");
+		i.classList.add("A");
+
+	};
+	const pausesong=()=>{
+		music.pause();
+		playing=true;
+		play.classList.replace("fa-pause","fa-play");
+		i.classList.remove("A");
+	};
+	const playcontrol=()=>{
+		if(playing){
+			playsong();
+		}
+		else{
+			pausesong();
+		}
+	}
+	play.addEventListener('click',playcontrol);
+
+	const songs=[{
+		name:"sk1",
+		header:"first",
+		title:"fist song",
+	},
+	{
+		name:"sk2",
+		header:"Next",
+		title:"Ohk",	
+	}
+	]
+
+
+	const loadsong=(songs)=>{
+		header.textContent=songs.header;
+		title.textContent=songs.title;
+		music.src="m/"+songs.name + ".mp3";
+		i.src="img/"+songs.name+".jpg";
+
+	};
+
+	songIndex=-1;
+	//loadsong(songs[0]);
+	const nextsong=()=>{
+		songIndex=(songIndex + 1)%songs.length;
+		loadsong(songs[songIndex]);
+		play.addEventListener('click',playcontrol);
+		
+	};
+	const presong=()=>{
+		songIndex=(songIndex -1+songs.length)%songs.length;
+		loadsong(songs[songIndex]);
+		play.addEventListener('click',playcontrol);
+		
+	};
+
+
+/*	progress*/
+
+	music.addEventListener('timeupdate',(event) =>{
+		//console.log(event)
+		const {currentTime,duration}=event.srcElement;
+		/*console.log(duration);
+		console.log(currentTime);*/
+		let progress_time=((currentTime/duration)*100);
+		progress.style.width=`${progress_time}%`;
+
+		/*music duration update*/
+		//console.log(duration);
+		let minutes_duration=Math.floor(duration/60);
+		let seconds_duration=Math.floor(duration%60);
+		console.log(minutes_duration);
+		console.log(seconds_duration);
+		if(seconds_duration<10){
+			seconds_duration=`0${seconds_duration}`;
+		}
+		let totalduration=`${minutes_duration}:${seconds_duration}`;
+		if(duration){
+		durationtime.textContent=totalduration;
+	
+		}
+		/*current*/
+		let minutes_current=Math.floor(currentTime/60);
+		let seconds_current=Math.floor(currentTime%60);
+		//console.log(minutes_current);
+		//console.log(seconds_current);
+
+		
+		if(seconds_current<10){
+			seconds_current=`0${seconds_current}`
+		
+	
+		}
+		let totalcurrent=`${minutes_current}:${seconds_current}`;
+		current.textContent=totalcurrent;
+		
+	});
+
+
+	/*progress onclick functionality*/
+	progress_div.addEventListener('click',(event)=>{
+		//console.log(event);
+		const {duration}=music;
+		let move_progress=
+		(event.offsetX/event.srcElement.clientWidth)*duration;
+		//console.log(move_progress);
+		music.currentTime=move_progress;
+	});
+
+	next.addEventListener('click',nextsong);
+	previous.addEventListener('click',presong);	
+
+
+</script>
+</html>

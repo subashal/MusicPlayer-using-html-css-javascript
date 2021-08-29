@@ -1,0 +1,139 @@
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+.main_div{
+	width: 100vw;
+	height: 100vh;
+	background-color:ivory; 
+	display: grid;
+	place-items: center;
+}
+.music_container{
+	width: 35rem;
+	height: 40rem;
+	border: 2px solid;
+	background-color: skyblue;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	border-radius: 2rem;
+	box-shadow: 0 1rem 0.2rem 0.5rem grey;
+}
+#img-cont{
+	width: 25rem;
+	height: 30rem;
+	
+	
+
+}
+img{
+	width:15rem;
+	height: 15rem;
+	border-radius: 50%;
+
+	margin: 2rem 0 2rem 0;
+	box-shadow: 0 1rem 4rem blueviolet;
+
+
+}
+#header{
+	text-transform: uppercase;
+	letter-spacing: 0.2rem;
+	word-spacing: 0.3rem;
+	margin: 0.2rem 0 3rem 0;
+	text-shadow: 0 0.3rem 0.5rem black;
+}
+#title{
+	text-transform: capitalize;
+	letter-spacing: 0.3rem;
+	word-spacing: 0.4rem;
+	color: goldenrod;
+	text-shadow: 0 0.2rem 0.3rem goldenrod;
+	margin-bottom: 2rem;
+}
+.music_control{
+	width: 15rem;
+	height: 2rem;
+	/*background-color: red;
+*/	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 0.5rem;
+	margin-bottom: 1rem;
+}
+.music_control .fas{
+	font-size: 3rem;
+	cursor: pointer;
+	display: grid;
+	place-items: center;
+}
+.music_control .main-button{
+	width: 5rem;
+	height: 5rem;
+	background-color: black;
+	color: white;
+	border-radius: 50%;
+}
+.music_control .main-button:hover{
+	background-color: whitesmoke;
+	box-shadow: 0 0.5rem 0.5rem darkgrey;
+	color: black;
+}
+.music_control #prev:hover{
+	color: darkgrey;
+	/*box-shadow: 0 0.5rem 0.5rem darkgrey;*/
+}
+.music_control #next:hover{
+	color: darkgrey;
+	/*box-shadow: 0 0.5rem 0.5rem darkgrey;*/
+}
+.A{
+	animation: rotateplay 4s linear infinite; /*(name,duration,type,infinte)*/
+}
+@keyframes rotateplay{
+	from{
+		transform: rotate(0deg);
+	}
+	to{
+		transform: rotate(360deg);
+	}
+}
+ 
+.progress_container{
+	width: 100%;
+	height: auto;
+	padding: 1rem 0;
+	margin-top: 1rem;
+	text-align: center;
+	margin-bottom: 2rem;
+}
+.progress_div{
+	width: 100%;
+	height: 0.5rem;
+	box-shadow: 0 1px 2px blueviolet;
+	border-radius: 4rem;
+	position: relative;
+	/*
+	transition: all 1s linear;
+	-moz-transition: all 1s linear;*/
+	cursor: pointer;
+}
+.progress{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 0%;/*change the width dynamic we want*/
+	height: 100%;
+	background-color: black;
+	border-radius: 4rem;
+	/*transition: all 1s linear;
+	-moz-transition: all 1s linear;*/
+	cursor: pointer;
+}
+.progress_time{
+	display: flex;
+	justify-content: space-between;
+}
